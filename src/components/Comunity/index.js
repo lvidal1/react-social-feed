@@ -20,7 +20,7 @@ const Comunity = () => {
             {users.items &&
                 <div className="grid md:grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-4 p-4 ">
                     {users.items.map((user) =>
-                        <Avatar user={user} />
+                        <Avatar key={user.id} user={user} />
                     )}
                 </div>
             }
