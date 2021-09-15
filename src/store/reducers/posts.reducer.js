@@ -3,7 +3,7 @@ import { actions } from "../actions/posts.actions";
 export function posts(
   state = {
     loading: false,
-    posts: [],
+    items: [],
     error: null
   },
   action
