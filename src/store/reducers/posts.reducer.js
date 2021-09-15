@@ -1,6 +1,13 @@
 import { actions } from "../actions/posts.actions";
 
-export function posts(state = {}, action) {
+export function posts(
+  state = {
+    loading: false,
+    posts: [],
+    error: null
+  },
+  action
+) {
   switch (action.type) {
     case actions.GETALL_REQUEST:
       return {
