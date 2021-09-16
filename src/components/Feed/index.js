@@ -16,11 +16,11 @@ const Feed = () => {
   return (
     <>
       <h2 className="text-2xl font-semibold">Feed</h2>
-      {posts.loading && <em>Loading posts...</em>}
-      {posts.error && <span className="text-danger">ERROR: {posts.error}</span>}
-      {posts.items &&
+      {posts.meta.loading && <em>Loading posts...</em>}
+      {posts.meta.error && <span className="text-danger">ERROR: {posts.meta.error}</span>}
+      {posts.all &&
         <div className="space-y-2 p-4 items-center flex flex-col">
-          {posts.items.map((post) =>
+          {posts.all.map((post) =>
             <Post key={post.id} post={post} />
           )}
         </div>
