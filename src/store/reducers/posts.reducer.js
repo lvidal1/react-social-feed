@@ -1,27 +1,94 @@
-import { actions } from "../actions/posts.actions";
+import { combineReducers } from 'redux';
 
-export function posts(
+import { actions } from "../actions/posts.actions";
+import { actions as commentActions } from "../actions/comments.actions";
+
+/**
+ * Map metadata
+ * 
+ * @param {object} state 
+ * @param {string} action 
+ * @returns object state
+ */
+function metaReducer(
   state = {
     loading: false,
-    items: [],
-    error: null
-  },
-  action
+    error: null,
+  }, action
 ) {
   switch (action.type) {
     case actions.GETALL_REQUEST:
       return {
+        ...state,
         loading: true
       };
     case actions.GETALL_SUCCESS:
       return {
-        items: action.posts
+        ...state,
+        loading: false
       };
     case actions.GETALL_FAILURE:
       return {
+        ...state,
         error: action.error
       };
-    default:
-      return state;
   }
+  return state;
 }
+
+/**
+ * Map all array of posts
+ * 
+ * @param {object} state 
+ * @param {string} action 
+ * @returns object state
+ */
+export const allReducer = (state = false, action) => {
+  switch (action.type) {
+    case actions.GETALL_SUCCESS:
+      const { posts } = action;
+      return posts;
+  }
+  return state;
+}
+
+/**
+ * Normalize all postId
+ * 
+ * @param {object} state 
+ * @param {string} action 
+ * @returns object state
+ */
+export const postByIdReducer = (state = {}, action) => {
+  switch (action.type) {
+    case actions.GETALL_SUCCESS:{
+      const { posts } = action;
+
+      let byId = posts.reduce((map, post) => ({ ...map, [post.id]: post }), {});
+      return {
+        ...state,
+        ...byId
+      };
+    }
+    case commentActions.GETALL_SUCCESS:{
+      const { comments, postId } = action;
+
+      const post = Object.assign(state[postId],{comments});
+      let byId = Object.assign(state, post);
+
+      return {
+        ...state,
+        ...byId
+      };
+    }
+  }
+  return state;
+}
+
+
+
+export const postReducer = combineReducers({
+  meta: metaReducer,
+  all: allReducer,
+  byId: postByIdReducer,
+});
