@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import { actions } from "../actions/posts.actions";
+import { actions as commentActions } from "../actions/comments.actions";
 
 /**
  * Map metadata
@@ -9,7 +10,7 @@ import { actions } from "../actions/posts.actions";
  * @param {string} action 
  * @returns object state
  */
- function metaReducer(
+function metaReducer(
   state = {
     loading: false,
     error: null,
@@ -42,7 +43,7 @@ import { actions } from "../actions/posts.actions";
  * @param {string} action 
  * @returns object state
  */
- export const allReducer = (state = false, action) => {
+export const allReducer = (state = false, action) => {
   switch (action.type) {
     case actions.GETALL_SUCCESS:
       const { posts } = action;
@@ -60,48 +61,34 @@ import { actions } from "../actions/posts.actions";
  */
 export const postByIdReducer = (state = {}, action) => {
   switch (action.type) {
-    case actions.GETALL_SUCCESS:
+    case actions.GETALL_SUCCESS:{
       const { posts } = action;
 
-      const byId = posts.reduce((map, post) => ({ ...map, [post.id]: post }), {});
+      let byId = posts.reduce((map, post) => ({ ...map, [post.id]: post }), {});
       return {
         ...state,
         ...byId
       };
+    }
+    case commentActions.GETALL_SUCCESS:{
+      const { comments, postId } = action;
+
+      const post = Object.assign(state[postId],{comments});
+      let byId = Object.assign(state, post);
+
+      return {
+        ...state,
+        ...byId
+      };
+    }
   }
   return state;
 }
+
+
 
 export const postReducer = combineReducers({
   meta: metaReducer,
   all: allReducer,
   byId: postByIdReducer,
 });
-
-
-export function posts(
-  state = {
-    loading: false,
-    items: [],
-    error: null
-  },
-  action
-) {
-  switch (action.type) {
-    case actions.GETALL_REQUEST:
-      return {
-        loading: true
-      };
-    case actions.GETALL_SUCCESS:
-      return {
-        byId: action.posts.reduce((map, post) => ({ ...map, [post.id]: post }), {}),
-        items: action.posts
-      };
-    case actions.GETALL_FAILURE:
-      return {
-        error: action.error
-      };
-    default:
-      return state;
-  }
-}

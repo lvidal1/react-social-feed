@@ -4,7 +4,6 @@ import { shuffle, randomDate } from "../../helpers"
 
 
 function mockMiddleware(data) {
-
   const sortByCreatedAt = function (a, b) {
     if (a.created_at > b.created_at) return -1;
     if (a.created_at < b.created_at) return 1;
@@ -24,7 +23,6 @@ function handleResponse(res) {
       const error = (data && data.message) || res.statusText;
       return Promise.reject(error);
     }
-
     return mockMiddleware(data);
   });
 }
@@ -33,7 +31,6 @@ const getAll = async () => {
   const options = {
     method: "GET"
   };
-
   return fetch(`${BASE_URL}/posts`, options).then(handleResponse);
 };
 
@@ -41,7 +38,6 @@ const getById = async (id) => {
   const options = {
     method: "GET"
   };
-
   return fetch(`${BASE_URL}/posts/${id}`, options).then(handleResponse);
 };
 

@@ -1,5 +1,6 @@
-// users.service.js
+// posts.service.js
 const BASE_URL = "https://jsonplaceholder.typicode.com";
+
 
 function handleResponse(res) {
   return res.text().then((text) => {
@@ -12,23 +13,15 @@ function handleResponse(res) {
   });
 }
 
-const getAll = async () => {
+const getCommentsByPostId = async (id) => {
   const options = {
     method: "GET"
   };
-  return fetch(`${BASE_URL}/users`, options).then(handleResponse);
-};
-
-const getById = async (id) => {
-  const options = {
-    method: "GET"
-  };
-  return fetch(`${BASE_URL}/users/${id}`, options).then(handleResponse);
+  return fetch(`${BASE_URL}/posts/${id}/comments`, options).then(handleResponse);
 };
 
 const postService = {
-  getAll,
-  getById
+  getCommentsByPostId,
 };
 
 export default postService;

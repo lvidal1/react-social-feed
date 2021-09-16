@@ -18,7 +18,7 @@ const Comunity = () => {
             {users.meta.loading && <em>Loading comunity...</em>}
             {users.meta.error && <span className="text-danger">ERROR: {users.meta.error}</span>}
             {users.all &&
-                <div className="grid md:grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-4 p-4 ">
+                <div className="grid md:grid-cols-6 grid-cols-4 lg:grid-cols-8 gap-4 p-4 ">
                     {users.all.map((user) =>
                         <Avatar key={user.id} user={user} />
                     )}

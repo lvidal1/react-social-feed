@@ -6,7 +6,7 @@ export default function App() {
   return (
     <div className="App">
       <Hero />
-      <div className="max-w-screen-sm mx-auto py-6">
+      <div className="max-w-screen-sm mx-auto p-2 sm:p-6">
         <Comunity />
         <Feed />
       </div>
