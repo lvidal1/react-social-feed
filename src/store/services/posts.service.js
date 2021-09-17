@@ -9,11 +9,12 @@ function mockMiddleware(data) {
     if (a.created_at < b.created_at) return 1;
   };
 
-  return shuffle(data)
+  return data
+    //shuffle(data)
     .map((item) => {
       return { ...item, created_at: randomDate(new Date(2021, 0, 1), new Date()) }
     })
-    .sort(sortByCreatedAt)
+    //.sort(sortByCreatedAt)
 }
 
 function handleResponse(res) {

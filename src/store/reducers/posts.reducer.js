@@ -61,7 +61,7 @@ export const allReducer = (state = false, action) => {
  */
 export const postByIdReducer = (state = {}, action) => {
   switch (action.type) {
-    case actions.GETALL_SUCCESS:{
+    case actions.GETALL_SUCCESS: {
       const { posts } = action;
 
       let byId = posts.reduce((map, post) => ({ ...map, [post.id]: post }), {});
@@ -70,11 +70,23 @@ export const postByIdReducer = (state = {}, action) => {
         ...byId
       };
     }
-    case commentActions.GETALL_SUCCESS:{
+    case commentActions.GETALL_SUCCESS: {
       const { comments, postId } = action;
 
-      const post = Object.assign(state[postId],{comments});
-      let byId = Object.assign(state, post);
+      const post = Object.assign(state[postId], { comments: [...(state[postId].comments ? state[postId].comments : []), ...comments] });
+      let byId = Object.assign(state, { [postId]: post });
+
+      return {
+        ...state,
+        ...byId
+      };
+    }
+
+    case commentActions.ADD_SUCCESS: {
+      const { comment, postId } = action;
+
+      const post = Object.assign(state[postId], { comments: [comment, ...(state[postId].comments ? state[postId].comments : [])] });
+      let byId = Object.assign(state, { [postId]: post });
 
       return {
         ...state,
