@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import commentActions from "../../store/actions/comments.actions";
+import NewComment from "../NewComment";
 
 const Comments = ({ postId }) => {
     const dispatch = useDispatch();
@@ -20,8 +21,10 @@ const Comments = ({ postId }) => {
     }, [loadComments]);
 
     return (
-        <div className="space-y-2">
-            {!loadComments && <a href="#!" className="cursor-pointer uppercase tracking-wide text-gray-400 font-bold text-xs" onClick={()=>openComments(post.id)}>Load Comments</a>}
+        <div className="space-y-2 w-full">
+            <NewComment />
+            <hr />
+            {!loadComments && <a href="#!" className="inline-block cursor-pointer uppercase tracking-wide text-gray-400 font-bold text-xs" onClick={()=>openComments(post.id)}>Load Comments</a>}
             { loadComments && ( !post.comments && <em>Loading...</em> ) }
             { loadComments && post.comments &&
                 <div className="text-xs">
