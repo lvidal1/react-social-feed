@@ -70,7 +70,7 @@ const NewComment = ({ postId }) => {
             <div className="w-full md:w-full flex justify-between md:w-full">
                 <button className={`bg-white text-sm font-medium py-1 px-3 rounded tracking-wide mr-1  
                 ${!formState.isValid ? "bg-purple-300 cursor-not-allowed text-white" : "bg-purple-600 hover:bg-purple-700 focus:bg-purple-700 text-white"}`} disabled={!formState.isValid} onClick={handleSubmit}>Post Comment</button>
-                <div>{formState.values.comment ? formState.values.comment.length : 0}/{MAX_LENGTH}</div>
+                <div className="text-xs text-gray-400">{formState.values.comment ? formState.values.comment.length : 0}/{MAX_LENGTH}</div>
 
             </div>
             {/* {JSON.stringify(formState)} */}
