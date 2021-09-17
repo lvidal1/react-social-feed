@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import V from 'max-validator';
 import TextareaAutosize from 'react-textarea-autosize';
+
+import commentActions from '../../store/actions/comments.actions';
 
 const MAX_LENGTH = 255;
 
@@ -8,11 +11,9 @@ const registerFormScheme = {
     comment: `required|min:1|max:${MAX_LENGTH}`
 };
 
-const NewComment = () => {
-
-    const [comment, setComment] = useState("");
-
-    const [formState, setFormState] = React.useState({
+const NewComment = ({ postId }) => {
+    const dispatch = useDispatch();
+    const [formState, setFormState] = useState({
         isValid: false,
         values: {},
         touched: {},
@@ -48,15 +49,11 @@ const NewComment = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        if(formState.isValid){
-            console.log(formState.values.comment);
+        if (formState.isValid) {
+            const { comment } = formState.values;
+            commentActions.addComment(dispatch, postId, comment);
         }
     };
-
-    // const handleChange = (event) => {
-    //     const shouldSetValue = event.target.value.length <= MAX_LENGTH;
-    //     if (shouldSetValue) setComment(event.target.value)
-    // }
 
     return <form className="w-full max-w-xl bg-white rounded-lg space-y-2">
         <div className="flex flex-wrap">
@@ -71,10 +68,10 @@ const NewComment = () => {
                 />
             </div>
             <div className="w-full md:w-full flex justify-between md:w-full">
-                <button className={`bg-white text-sm font-medium py-1 px-3 rounded tracking-wide mr-1 hover:bg-gray-100 
-                ${!formState.isValid ? "bg-purple-300 cursor-not-allowed text-white" : "bg-purple-600 text-white"}`}  disabled={!formState.isValid} onClick={handleSubmit}>Post Comment</button>
-                <div>{ formState.values.comment ? formState.values.comment.length : 0}/{MAX_LENGTH}</div>
-                
+                <button className={`bg-white text-sm font-medium py-1 px-3 rounded tracking-wide mr-1  
+                ${!formState.isValid ? "bg-purple-300 cursor-not-allowed text-white" : "bg-purple-600 hover:bg-purple-700 focus:bg-purple-700 text-white"}`} disabled={!formState.isValid} onClick={handleSubmit}>Post Comment</button>
+                <div>{formState.values.comment ? formState.values.comment.length : 0}/{MAX_LENGTH}</div>
+
             </div>
             {/* {JSON.stringify(formState)} */}
 

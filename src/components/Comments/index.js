@@ -22,7 +22,7 @@ const Comments = ({ postId }) => {
 
     return (
         <div className="space-y-2 w-full">
-            <NewComment />
+            <NewComment postId={post.id} />
             <hr />
             {!loadComments && <a href="#!" className="inline-block cursor-pointer uppercase tracking-wide text-gray-400 font-bold text-xs" onClick={()=>openComments(post.id)}>Load Comments</a>}
             { loadComments && ( !post.comments && <em>Loading...</em> ) }
