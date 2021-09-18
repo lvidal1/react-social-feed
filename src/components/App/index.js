@@ -10,6 +10,7 @@ export default function App() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
 
+  
   useEffect(() => {
     if(!auth.user){
       authActions.login(dispatch, { name: "Leonardo", email: "lvidal910@gmail.com" })
