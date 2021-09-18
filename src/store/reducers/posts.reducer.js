@@ -84,8 +84,8 @@ export const postByIdReducer = (state = {}, action) => {
 export const commentsIdsByIdReducer = (state = {}, action) => {
   switch (action.type) {
     case commentActions.GETALL_SUCCESS: {
-      const { comments } = action;
-      // comments array
+      const { comments, postId } = action;
+      // map new comments array
       let commentIdsByUserId = comments.reduce((map, comment) => ({
         // comment is an object
         ...map,
@@ -100,6 +100,10 @@ export const commentsIdsByIdReducer = (state = {}, action) => {
       }),
         {}
       );
+
+      // merge with existing array
+      commentIdsByUserId[postId] = state[postId] ? [...new Set([...state[postId], ...commentIdsByUserId[postId] ])] : [...commentIdsByUserId[postId]];
+
       return {
         ...state,
         ...commentIdsByUserId,
