@@ -81,7 +81,7 @@ export const postByIdReducer = (state = {}, action) => {
  * @param {string} action 
  * @returns object state
  */
-export const commentsIdsByIdReducer = (state = {}, action) => {
+export const commentIdsByIdReducer = (state = {}, action) => {
   switch (action.type) {
     case commentActions.GETALL_SUCCESS: {
       const { comments, postId } = action;
@@ -130,5 +130,5 @@ export const postReducer = combineReducers({
   meta: metaReducer,
   all: allReducer,
   byId: postByIdReducer,
-  commentIdsById: commentsIdsByIdReducer,
+  commentIdsById: commentIdsByIdReducer,
 });
