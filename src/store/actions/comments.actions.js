@@ -16,8 +16,8 @@ const getComments = (dispatch, id) => {
   );
 };
 
-const addComment = (dispatch, postId, comment) =>{
-  dispatch({ type: actions.ADD_SUCCESS, postId, comment : { postId, id: +new Date(), body:comment , email: "admin@admin.com"} })
+const addComment = (dispatch, postId, comment , auth) =>{
+  dispatch({ type: actions.ADD_SUCCESS, postId, comment : { postId, id: +new Date(), userId : auth.id, body:comment , email: auth.email } })
 }
 
 const commentActions = {
