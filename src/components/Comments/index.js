@@ -22,9 +22,8 @@ const Comments = ({ postId }) => {
     return (
         <div className="space-y-2 w-full">
             <NewComment postId={post.id} />
-            {loading ? <div className="relative w-full bg-gray-200 rounded">
-                <div  className="absolute top-0 h-1 rounded shim-progress w-full"></div>
-            </div> : <hr />}
+            <hr />
+            
             {post.comments &&
                 <div className="text-xs space-y-2">
                     <h4 className="uppercase tracking-wide text-gray-400 font-bold text-xs">Comments</h4>
@@ -40,7 +39,10 @@ const Comments = ({ postId }) => {
                     </div>
                 </div>
             }
-            <a href="#!" className="inline-block cursor-pointer uppercase tracking-wide text-gray-400 font-semibold text-xs underline" onClick={() => loadComments(post.id)}>Load Comments</a>
+            {loading ? <div className="relative w-full bg-gray-200 rounded">
+                <div  className="absolute top-0 h-1 rounded shim-progress w-full"></div>
+            </div> : <a href="#!" className="inline-block cursor-pointer uppercase tracking-wide text-gray-400 font-semibold text-xs underline" onClick={() => loadComments(post.id)}>Load Comments</a> }
+            
         </div>
     );
 }
