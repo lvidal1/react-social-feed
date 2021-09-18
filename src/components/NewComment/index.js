@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import V from 'max-validator';
 import TextareaAutosize from 'react-textarea-autosize';
 
@@ -13,12 +13,23 @@ const registerFormScheme = {
 
 const NewComment = ({ postId }) => {
     const dispatch = useDispatch();
+
+    const comments = useSelector((state) => state.posts.commentIdsById[postId]);
+    const [adding, setAdding] = useState(false);
+    
     const [formState, setFormState] = useState({
         isValid: false,
         values: {},
         touched: {},
         errors: V.getEmpty(),
     });
+
+    useEffect(() => {
+        if(adding){
+            setAdding(false)
+            updateFormValue("comment","");
+        }
+    }, [comments]);
 
     useEffect(() => {
         const errors = V.validate(formState.values, registerFormScheme);
@@ -30,20 +41,23 @@ const NewComment = ({ postId }) => {
         }));
     }, [formState.values]);
 
-    const handleChange = (event) => {
-        event.persist();
-
+    const updateFormValue = (field, value) => {
         setFormState((formState) => ({
             ...formState,
             values: {
                 ...formState.values,
-                [event.target.name]: event.target.value,
+                [field]: value,
             },
             touched: {
                 ...formState.touched,
-                [event.target.name]: true,
+                [field]: true,
             },
         }));
+    }
+
+    const handleChange = (event) => {
+        event.persist();
+        updateFormValue(event.target.name, event.target.value)
     };
 
     const handleSubmit = (event) => {
@@ -52,6 +66,7 @@ const NewComment = ({ postId }) => {
         if (formState.isValid) {
             const { comment } = formState.values;
             commentActions.addComment(dispatch, postId, comment);
+            setAdding(true)
         }
     };
 
