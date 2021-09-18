@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 
 import { userReducer } from "./user";
-import { postReducer } from "./posts.reducer";
-import { commentReducer } from "./comments.reducer";
+import { postReducer } from "./post";
+import { commentReducer } from "./comment";
 
 const rootReducer = combineReducers({
   users: userReducer,
