@@ -21,6 +21,7 @@ export const store = createStore(
  */
 store.subscribe(() => {
   saveState({
+    auth: store.getState().auth,
     comments: store.getState().comments,
     posts: { commentIdsById: store.getState().posts.commentIdsById }
   });
