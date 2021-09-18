@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import { actions } from "../actions/users.actions";
-import { actions as postActions } from "../actions/posts.actions";
+import { actions } from "../../actions/users.actions";
+import { actions as postActions } from "../../actions/posts.actions";
 
 /**
  * Map metadata

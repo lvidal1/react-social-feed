@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import { actions } from "../actions/comments.actions";
+import { actions } from "../../actions/comments.actions";
 
 /**
  * Map metadata
