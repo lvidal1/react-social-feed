@@ -5,6 +5,7 @@ import authActions from "../../store/actions/auth.actions";
 import Comunity from "../Comunity";
 import Feed from "../Feed";
 import Hero from "../Hero";
+import LoginModal from "../Modal/LoginModal";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -18,12 +19,14 @@ export default function App() {
   }, []);
 
   return (
-    <div className="App">
+    <><div className="App">
       <Hero />
       <div className="max-w-screen-sm mx-auto p-2 sm:p-6">
         <Comunity />
         <Feed />
       </div>
     </div>
+    <LoginModal />
+    </>
   );
 }
