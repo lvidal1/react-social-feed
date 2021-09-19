@@ -14,7 +14,7 @@ export default function App() {
   
   useEffect(() => {
     if(!auth.user){
-      authActions.login(dispatch, { name: "Leonardo", email: "lvidal910@gmail.com" })
+      //authActions.login(dispatch, { name: "Leonardo", email: "lvidal910@gmail.com" })  
     }   
   }, []);
 

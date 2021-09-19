@@ -73,7 +73,7 @@ const NewComment = ({ postId }) => {
     };
 
     return <div className="w-full max-w-xl bg-white rounded-lg space-y-2">
-        {!auth.user && <p class="text-center text-sm font py-2 bg-gray-100">Do you want participate? <a href="#!" class="text-sm text-purple-600">Sign up</a></p>}
+        {!auth.user && <p className="text-center text-sm font py-2 bg-gray-100">Do you want participate? <a href="#!" className="text-sm text-purple-600">Sign up</a></p>}
         {auth.user && <form >
             <div className="flex flex-wrap">
                 <div className="w-full md:w-full">
