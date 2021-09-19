@@ -17,7 +17,7 @@ const LoginModal = () => {
 
     return <>
         {login && <div className="flex items-center flex-col justify-center fixed left-0 bottom-0 w-full h-full bg-gray-800 bg-opacity-60">
-            <svg className="m-4 fill-current text-white w-6 h-6 cursor-pointer" onClick={onClose} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
+            <svg className="m-4 fill-current text-white w-6 h-6 cursor-pointer" role="button" alt="close" title="close" onClick={onClose} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
                 <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z" />
             </svg>
             <div className="bg-white rounded-lg w-3/4 sm:w-2/4 md:w-1/4">
@@ -35,6 +35,7 @@ const LoginModal = () => {
                                 type="email"
                                 required
                                 placeholder="Email"
+                                tabIndex="1"
                             />
                         </div>
                         <div className="">
@@ -47,6 +48,7 @@ const LoginModal = () => {
                                 type="text"
                                 required
                                 placeholder="Name"
+                                tabIndex="2"
                             />
                         </div>
                     </form>

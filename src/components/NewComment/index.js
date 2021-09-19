@@ -4,6 +4,7 @@ import V from 'max-validator';
 import TextareaAutosize from 'react-textarea-autosize';
 
 import commentActions from '../../store/actions/comments.actions';
+import UIActions from "../../store/actions/ui.actions";
 
 const MAX_LENGTH = 255;
 
@@ -72,8 +73,13 @@ const NewComment = ({ postId }) => {
         }
     };
 
+    const onSignUp = () =>{
+        UIActions.openLoginModal(dispatch);
+    }
+
     return <div className="w-full max-w-xl bg-white rounded-lg space-y-2">
-        {!auth.user && <p className="text-center text-sm font py-2 bg-gray-100">Do you want participate? <a href="#!" className="text-sm text-purple-600">Sign up</a></p>}
+        {!auth.user && <p className="text-center text-sm font py-2 bg-gray-100">Do you want participate? <a href="#!" className="text-sm text-purple-600"  onClick={onSignUp} >Sign up</a>
+        </p>}
         {auth.user && <form >
             <div className="flex flex-wrap">
                 <div className="w-full md:w-full">
