@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Comunity from "../Comunity";
 import Feed from "../Feed";
+import Footer from "../Footer";
 import Hero from "../Hero";
 import LoginModal from "../Modal/LoginModal";
 import Navbar from "../Navbar";
@@ -28,9 +29,8 @@ export default function App() {
           <div className="w-full md:w-3/5 order-2 md:order-1"><Feed /></div>
           <div className="w-full md:w-2/5 order-1 md:order-2"><Comunity /></div>
         </div>
-        
-        
       </div>
+      <Footer />
     </div>
     <LoginModal />
     </>
