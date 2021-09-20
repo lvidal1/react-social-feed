@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import authActions from "../../store/actions/auth.actions";
+
 
 import Comunity from "../Comunity";
 import Feed from "../Feed";
 import Hero from "../Hero";
 import LoginModal from "../Modal/LoginModal";
+import Navbar from "../Navbar";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ export default function App() {
 
   return (
     <><div className="App">
+      <Navbar />
       <Hero />
       <div className="max-w-screen-sm mx-auto p-2 sm:p-6">
         <Comunity />
