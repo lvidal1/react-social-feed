@@ -20,7 +20,7 @@ const Feed = () => {
   }, []);
 
   return (
-    <div className="max-w-lg mx-auto">
+    <div className="max-w-lg mx-auto" id="feed">
       <h2 className="font-semibold text-xl text-gray-600 mb-4 md:mb-6">Latest posts</h2>
       {
         !posts.meta.loading &&
