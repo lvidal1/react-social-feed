@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ShimmerPostItem } from "react-shimmer-effects";
 
 import postActions from "../../store/actions/posts.actions";
 
@@ -13,7 +14,7 @@ const Feed = () => {
   const onLoadMorePosts = () => {
     postActions.getAll(dispatch, page, count);
   }
-    
+
   useEffect(() => {
     postActions.getAll(dispatch, page, count);
   }, []);
@@ -21,7 +22,13 @@ const Feed = () => {
   return (
     <>
       <h2 className="text-2xl font-semibold">Feed</h2>
-      
+      {
+        <>
+          <div className="text-center text-purple-600 font-semibold text-black underline">
+            <a href="#!" onClick={onLoadMorePosts} >Load ({`${count}`}) posts more</a>
+          </div>
+        </>
+      }
       {posts.all &&
         <div className="space-y-2 p-4 items-center flex flex-col">
           {posts.all.map((post) =>
@@ -29,9 +36,17 @@ const Feed = () => {
           )}
         </div>
       }
-      {posts.meta.loading && <em>Loading posts...</em>}
+      {posts.meta.loading && <div className="max-w-lg mx-auto"><ShimmerPostItem
+        card
+        title
+        cta
+        imageType="thumbnail"
+        imageWidth={80}
+        imageHeight={80}
+        contentCenter
+      /></div>}
       {posts.meta.error && <span className="text-danger">ERROR: {posts.meta.error}</span>}
-      {<a href="#!" onClick={onLoadMorePosts} >Load more posts</a>}
+
     </>
   );
 };

@@ -15,7 +15,7 @@ function metaReducer(
     loading: false,
     error: null,
     page: 0,
-    count: 10
+    count: 4
   }, action
 ) {
   switch (action.type) {
@@ -52,7 +52,7 @@ export const allReducer = (state = [], action) => {
     case actions.GETALL_SUCCESS:
       const { posts } = action;
       return [
-        ...new Set([...state, ...posts])
+        ...new Set([ ...posts, ...state])
       ];
   }
   return state;

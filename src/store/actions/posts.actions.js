@@ -17,7 +17,6 @@ const getAll = (dispatch, page, count) => {
 
   postService.getAll().then(
     (posts) => {
-      console.log(mockPagination(posts, page, count))
       return dispatch({ type: actions.GETALL_SUCCESS, posts: mockPagination(posts, page, count) });
     },
     (error) => dispatch({ type: actions.GETALL_FAILURE, error })
