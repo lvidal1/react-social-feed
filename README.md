@@ -24,7 +24,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Features
 
-:newspaper: It shows a responsive feed & users layout using information from testing API (https://jsonplaceholder.typicode.com).
+:newspaper: It shows a responsive feed & users layout using information from a testing API (https://jsonplaceholder.typicode.com).
 
 :ticket: It displays a column for the latest posts.
 
