@@ -29,9 +29,9 @@ const Comunity = () => {
         <span className="text-danger">ERROR: {users.meta.error}</span>
       )}
       {users.all && (
-        <div className="flex flex-wrap sm:flex-col md:flex-row justify-start space-x-4 md:p-4 mb-6">
+        <div className="flex flex-wrap justify-center md:p-4 mb-6">
           {users.all.map((user) => (
-            <div className="flex-1 mb-4">
+            <div className="m-1 sm:m-2 md:m-2 w-24">
               <Avatar key={user.id} user={user} />
             </div>
           ))}

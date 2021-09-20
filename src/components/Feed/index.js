@@ -13,7 +13,7 @@ const Feed = () => {
 
   const onLoadMorePosts = () => {
     postActions.getAll(dispatch, page, count);
-  }
+  };
 
   useEffect(() => {
     postActions.getAll(dispatch, page, count);
@@ -21,31 +21,39 @@ const Feed = () => {
 
   return (
     <div className="max-w-lg mx-auto" id="feed">
-      <h2 className="font-semibold text-xl text-gray-600 mb-4 md:mb-6">Latest posts</h2>
-      {
-        !posts.meta.loading &&
-          <div className="text-center text-purple-600 font-semibold text-black underline my-4">
-            <a href="#!" onClick={onLoadMorePosts} >Load ({`${count}`}) posts more</a>
-          </div>
-      }
-      {posts.meta.loading && <div className="max-w-lg mx-auto"><ShimmerPostItem
-        card
-        title
-        cta
-        imageType="thumbnail"
-        imageWidth={80}
-        imageHeight={80}
-        contentCenter
-      /></div>}
-      {posts.all &&
-        <div className="space-y-2 items-center flex flex-col">
-          {posts.all.map((post) =>
-            <Post key={post.id} post={post} />
-          )}
+      <h2 className="font-semibold text-xl text-gray-600 mb-4 md:mb-6">
+        Latest posts
+      </h2>
+      {!posts.meta.loading && (
+        <div className="text-center text-purple-600 font-semibold text-black underline my-4">
+          <a href="#!" onClick={onLoadMorePosts}>
+            Load next ({`${count}`}) posts
+          </a>
         </div>
-      }
-      {posts.meta.error && <span className="text-danger">ERROR: {posts.meta.error}</span>}
-
+      )}
+      {posts.meta.loading && (
+        <div className="max-w-lg mx-auto">
+          <ShimmerPostItem
+            card
+            title
+            cta
+            imageType="thumbnail"
+            imageWidth={80}
+            imageHeight={80}
+            contentCenter
+          />
+        </div>
+      )}
+      {posts.all && (
+        <div className="space-y-2 items-center flex flex-col">
+          {posts.all.map((post) => (
+            <Post key={post.id} post={post} />
+          ))}
+        </div>
+      )}
+      {posts.meta.error && (
+        <span className="text-danger">ERROR: {posts.meta.error}</span>
+      )}
     </div>
   );
 };
