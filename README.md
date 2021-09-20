@@ -30,7 +30,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 :ticket: It displays a column for people(users) on the comunity.
 
-:mag: Do you want participate on the thread? It allows to write comments on the post. Comments are just saved on the localstorage
+:mag: Do you want participate on the thread? It allows to write comments on the posts. Comments are just saved on the localstorage
 
 :mag: Do you want to load more comments? It allows to load 4 more comments by request.
 
