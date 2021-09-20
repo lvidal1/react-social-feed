@@ -8,10 +8,15 @@ import Post from "../Post";
 const Feed = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
+  const {page, count} = useSelector((state) => state.posts.meta);
 
   useEffect(() => {
-    postActions.getAll(dispatch);
+    postActions.getAll(dispatch, page, count);
   }, []);
+
+  const onLoadMorePosts = () =>{
+    postActions.getAll(dispatch, page, count);
+  }
 
   return (
     <>
@@ -25,6 +30,7 @@ const Feed = () => {
           )}
         </div>
       }
+      {<a href="#!" onClick={onLoadMorePosts} >Load more posts</a>}
     </>
   );
 };

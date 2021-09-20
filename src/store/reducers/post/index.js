@@ -14,6 +14,8 @@ function metaReducer(
   state = {
     loading: false,
     error: null,
+    page: 0,
+    count: 10
   }, action
 ) {
   switch (action.type) {
@@ -23,9 +25,11 @@ function metaReducer(
         loading: true
       };
     case actions.GETALL_SUCCESS:
+      const { page } = state;
       return {
         ...state,
-        loading: false
+        loading: false,
+        page: (page + 1),
       };
     case actions.GETALL_FAILURE:
       return {
@@ -43,11 +47,13 @@ function metaReducer(
  * @param {string} action 
  * @returns object state
  */
-export const allReducer = (state = false, action) => {
+export const allReducer = (state = [], action) => {
   switch (action.type) {
     case actions.GETALL_SUCCESS:
       const { posts } = action;
-      return posts;
+      return [
+        ...new Set([...state, ...posts])
+      ];
   }
   return state;
 }
@@ -102,7 +108,7 @@ export const commentIdsByIdReducer = (state = {}, action) => {
       );
 
       // merge with existing array
-      commentIdsByUserId[postId] = state[postId] ? [...new Set([...state[postId], ...commentIdsByUserId[postId] ])] : [...commentIdsByUserId[postId]];
+      commentIdsByUserId[postId] = state[postId] ? [...new Set([...state[postId], ...commentIdsByUserId[postId]])] : [...commentIdsByUserId[postId]];
 
       return {
         ...state,
@@ -110,21 +116,21 @@ export const commentIdsByIdReducer = (state = {}, action) => {
       };
     }
 
-    case commentActions.ADD_SUCCESS:{
+    case commentActions.ADD_SUCCESS: {
       const { comment, postId } = action;
 
-      let newComment = { [postId] : state[postId] ? [comment.id, ...state[postId] ] : [comment.id]  }
+      let newComment = { [postId]: state[postId] ? [comment.id, ...state[postId]] : [comment.id] }
       return {
         ...state,
         ...newComment,
       };
     }
 
-    case commentActions.DELETE_SUCCESS:{
+    case commentActions.DELETE_SUCCESS: {
       const { comment } = action;
       const { postId } = comment;
 
-      let syncComment = { [postId] : state[postId].filter(cId => cId != comment.id ) }
+      let syncComment = { [postId]: state[postId].filter(cId => cId != comment.id) }
 
       return {
         ...state,

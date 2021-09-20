@@ -6,11 +6,20 @@ export const actions = {
   GETALL_FAILURE: "POSTS_GETALL_FAILURE"
 };
 
-const getAll = (dispatch) => {
+const mockPagination = (items, page, count) => {
+  const from = page * count;
+  const to = from + count;
+  return items.slice(from, to);
+}
+
+const getAll = (dispatch, page, count) => {
   dispatch({ type: actions.GETALL_REQUEST });
 
   postService.getAll().then(
-    (posts) => dispatch({ type: actions.GETALL_SUCCESS, posts }),
+    (posts) => {
+      console.log(mockPagination(posts, page, count))
+      return dispatch({ type: actions.GETALL_SUCCESS, posts: mockPagination(posts, page, count) });
+    },
     (error) => dispatch({ type: actions.GETALL_FAILURE, error })
   );
 };
