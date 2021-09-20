@@ -20,14 +20,13 @@ const Feed = () => {
   }, []);
 
   return (
-    <>
-      <h2 className="text-2xl font-semibold">Feed</h2>
+    <div className="max-w-lg mx-auto">
+      <h2 className="font-semibold text-xl text-gray-600 mb-4 md:mb-6">Latest posts</h2>
       {
         !posts.meta.loading &&
-          <div className="text-center text-purple-600 font-semibold text-black underline">
+          <div className="text-center text-purple-600 font-semibold text-black underline my-4">
             <a href="#!" onClick={onLoadMorePosts} >Load ({`${count}`}) posts more</a>
           </div>
-       
       }
       {posts.meta.loading && <div className="max-w-lg mx-auto"><ShimmerPostItem
         card
@@ -39,7 +38,7 @@ const Feed = () => {
         contentCenter
       /></div>}
       {posts.all &&
-        <div className="space-y-2 p-4 items-center flex flex-col">
+        <div className="space-y-2 items-center flex flex-col">
           {posts.all.map((post) =>
             <Post key={post.id} post={post} />
           )}
@@ -47,7 +46,7 @@ const Feed = () => {
       }
       {posts.meta.error && <span className="text-danger">ERROR: {posts.meta.error}</span>}
 
-    </>
+    </div>
   );
 };
 

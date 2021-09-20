@@ -23,9 +23,13 @@ export default function App() {
     <><div className="App">
       <Navbar />
       <Hero />
-      <div className="max-w-screen-sm mx-auto p-2 sm:p-6">
-        <Comunity />
-        <Feed />
+      <div className="container max-w-screen-xl mx-auto">
+        <div className="mx-4 md:ml-20 md:mr-48 flex flex-col md:flex-row my-6 md:my-12">
+          <div className="w-full md:w-3/5 order-2 md:order-1"><Feed /></div>
+          <div className="w-full md:w-2/5 order-1 md:order-2"><Comunity /></div>
+        </div>
+        
+        
       </div>
     </div>
     <LoginModal />
