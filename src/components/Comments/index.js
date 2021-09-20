@@ -20,6 +20,10 @@ const Comments = ({ postId }) => {
         setLoading(false)
     }, [comments]);
 
+    const onDelete = (comment) => {
+        commentActions.deleteComment(dispatch, comment);
+    }
+
     return (
         <div className="space-y-2 w-full">
             <NewComment postId={postId} />
@@ -31,7 +35,8 @@ const Comments = ({ postId }) => {
                         {comments.map((id) => {
                             const comment = commentsById[id];
                             return (comment && <div className="flex" key={comment.id}>
-                                <div className="flex-1 bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                                <div className="flex-1 bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed relative">
+                                    <a href="#!" className="absolute top-0 right-0 mx-3 my-2  text-xs text-purple-600" onClick={()=>onDelete(comment)}>Delete</a>
                                     <strong>{comment.email}</strong>
                                     <p className="text-xs sm:text-sm">
                                         {comment.body}

@@ -119,6 +119,18 @@ export const commentIdsByIdReducer = (state = {}, action) => {
         ...newComment,
       };
     }
+
+    case commentActions.DELETE_SUCCESS:{
+      const { comment } = action;
+      const { postId } = comment;
+
+      let syncComment = { [postId] : state[postId].filter(cId => cId != comment.id ) }
+
+      return {
+        ...state,
+        ...syncComment,
+      };
+    }
   }
 
   return state;

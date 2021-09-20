@@ -5,6 +5,7 @@ export const actions = {
   GETALL_SUCCESS: "COMMENTS_GETALL_SUCCESS",
   GETALL_FAILURE: "COMMENTS_GETALL_FAILURE",
   ADD_SUCCESS: "ADD_SUCCESS",
+  DELETE_SUCCESS: "DELETE_SUCCESS",
 };
 
 const getComments = (dispatch, id) => {
@@ -20,9 +21,14 @@ const addComment = (dispatch, postId, comment , auth) =>{
   dispatch({ type: actions.ADD_SUCCESS, postId, comment : { postId, id: +new Date(), userId : auth.id, body:comment , email: auth.email } })
 }
 
+const deleteComment = (dispatch, comment) => {
+  dispatch({ type: actions.DELETE_SUCCESS, comment });
+}
+
 const commentActions = {
   getComments,
-  addComment
+  addComment,
+  deleteComment
 };
 
 export default commentActions;
