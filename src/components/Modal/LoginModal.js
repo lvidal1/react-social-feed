@@ -1,19 +1,77 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import V from 'max-validator';
+
 import UIActions from "../../store/actions/ui.actions";
+import authActions from "../../store/actions/auth.actions";
+import uiActions from "../../store/actions/ui.actions";
+
+const loginFormScheme = {
+    name: 'required|string|min:2|max:50',
+    email: [
+        'required',
+        'email'
+    ],
+};
 
 const LoginModal = () => {
 
     const dispatch = useDispatch();
     const { login } = useSelector((state) => state.ui.modal)
 
+    const [formState, setFormState] = useState({
+        isValid: false,
+        values: {},
+        touched: {},
+        errors: V.getEmpty(),
+    });
+
     useEffect(() => {
 
     }, [login]);
 
+    useEffect(() => {
+        const errors = V.validate(formState.values, loginFormScheme);
+
+        setFormState((formState) => ({
+            ...formState,
+            isValid: !errors.hasError,
+            errors,
+        }));
+    }, [formState.values]);
+
+    const updateFormValue = (field, value) => {
+        setFormState((formState) => ({
+            ...formState,
+            values: {
+                ...formState.values,
+                [field]: value,
+            },
+            touched: {
+                ...formState.touched,
+                [field]: true,
+            },
+        }));
+    }
+
     const onClose = () => {
         UIActions.closeLoginModal(dispatch);
     }
+
+    const handleChange = (event) => {
+        event.persist();
+        updateFormValue(event.target.name, event.target.value)
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        if (formState.isValid) {
+            const { name, email } = formState.values;
+            authActions.login(dispatch, { name, email })
+            uiActions.closeLoginModal(dispatch);
+        }
+    };
 
     return <>
         {login && <div className="flex items-center flex-col justify-center fixed left-0 bottom-0 w-full h-full bg-gray-800 bg-opacity-60">
@@ -33,6 +91,7 @@ const LoginModal = () => {
                                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 name="email"
                                 type="email"
+                                onChange={handleChange}
                                 required
                                 placeholder="Email"
                                 tabIndex="1"
@@ -46,13 +105,15 @@ const LoginModal = () => {
                                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 name="name"
                                 type="text"
+                                onChange={handleChange}
                                 required
                                 placeholder="Name"
                                 tabIndex="2"
                             />
                         </div>
                     </form>
-                    <button className="bg-purple-500 hover:bg-purple-700 font-medium py-1 px-3 text-white rounded mx-auto ">
+                    <button className={`bg-white text-sm font-medium py-1 px-3 rounded tracking-wide mx-auto  
+                ${!formState.isValid ? "bg-purple-300 cursor-not-allowed text-white" : "bg-purple-600 hover:bg-purple-700 focus:bg-purple-700 text-white"}`} disabled={!formState.isValid} onClick={handleSubmit}>
                         Go!
                     </button>
                 </div>
