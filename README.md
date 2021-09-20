@@ -18,7 +18,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 :rocket: Check it out on https://lvidal-react-social-network.netlify.app/
 
-:rocket: Try it out on https://lvidal-react-social-network.netlify.app/
+:rocket: Try it out on https://codesandbox.io/s/stupefied-spence-tkxd0
 
 :round_pushpin: It renders a Feed UI built on React.
 
