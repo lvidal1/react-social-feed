@@ -20,3 +20,5 @@ export const shuffle = (array) => {
 export const randomDate = (start, end) => {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }
+
+export const removeKey = (key, {[key]: _, ...rest}) => rest;

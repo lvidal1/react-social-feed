@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from "react-redux";
 
 import commentActions from "../../store/actions/comments.actions";
 import NewComment from "../NewComment";
+import DeleteButton from "./DeleteButton";
 
 const Comments = ({ postId }) => {
     const dispatch = useDispatch();
+
     const comments = useSelector((state) => state.posts.commentIdsById[postId]);
     const commentsById = useSelector((state) => state.comments.byId);
 
@@ -31,7 +33,8 @@ const Comments = ({ postId }) => {
                         {comments.map((id) => {
                             const comment = commentsById[id];
                             return (comment && <div className="flex" key={comment.id}>
-                                <div className="flex-1 bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
+                                <div className="flex-1 bg-gray-100 rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed relative">
+                                    <DeleteButton comment={comment}/>
                                     <strong>{comment.email}</strong>
                                     <p className="text-xs sm:text-sm">
                                         {comment.body}

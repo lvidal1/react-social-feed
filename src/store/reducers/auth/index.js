@@ -12,6 +12,9 @@ export const userAuthReducer = (state = null, action) => {
                 ...user
             }
         }
+        case actions.LOGOUT_SUCCESS: {
+            return null
+        }
     }
 
     return state;

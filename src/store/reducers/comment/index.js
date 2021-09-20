@@ -1,6 +1,9 @@
 import { combineReducers } from 'redux';
+import { removeKey } from '../../../helpers';
 
 import { actions } from "../../actions/comments.actions";
+
+
 
 /**
  * Map metadata
@@ -69,15 +72,19 @@ export const commentByIdReducer = (state = {}, action) => {
         ...byId
       };
     }
-    case actions.ADD_SUCCESS:{
-        const { comment } = action;
-  
-        let newComment = { [comment.id] : comment  }
-        return {
-          ...state,
-          ...newComment,
-        };
-      }
+    case actions.ADD_SUCCESS: {
+      const { comment } = action;
+
+      let newComment = { [comment.id]: comment }
+      return {
+        ...state,
+        ...newComment,
+      };
+    }
+    case actions.DELETE_SUCCESS: {
+      const { comment } = action;     
+      return removeKey(comment.id, state);
+    }
   }
   return state;
 }
