@@ -23,18 +23,11 @@ const Feed = () => {
     <>
       <h2 className="text-2xl font-semibold">Feed</h2>
       {
-        <>
+        !posts.meta.loading &&
           <div className="text-center text-purple-600 font-semibold text-black underline">
             <a href="#!" onClick={onLoadMorePosts} >Load ({`${count}`}) posts more</a>
           </div>
-        </>
-      }
-      {posts.all &&
-        <div className="space-y-2 p-4 items-center flex flex-col">
-          {posts.all.map((post) =>
-            <Post key={post.id} post={post} />
-          )}
-        </div>
+       
       }
       {posts.meta.loading && <div className="max-w-lg mx-auto"><ShimmerPostItem
         card
@@ -45,6 +38,13 @@ const Feed = () => {
         imageHeight={80}
         contentCenter
       /></div>}
+      {posts.all &&
+        <div className="space-y-2 p-4 items-center flex flex-col">
+          {posts.all.map((post) =>
+            <Post key={post.id} post={post} />
+          )}
+        </div>
+      }
       {posts.meta.error && <span className="text-danger">ERROR: {posts.meta.error}</span>}
 
     </>
