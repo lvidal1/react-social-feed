@@ -15,7 +15,6 @@ const Navbar = () => {
     const onLogout = () => {
         authActions.logout(dispatch);
     }
-    
 
     return <nav className="bg-transparent absolute w-full" role="navigation">
         <div className="container mx-auto px-4 py-2 flex flex-wrap items-center justify-between">
